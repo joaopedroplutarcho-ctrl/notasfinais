@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minhas Notas</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b1f2a;--mut:#6b7280;--bd:#e3e6ee;--ok:#15803d;--okb:#dcfce7;--bad:#b91c1c;--badb:#fee2e2;--warn:#a16207;--warnb:#fef3c7;--ac:#1d5a96;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141b;--card:#1c1f2a;--tx:#eef0f6;--mut:#9aa1b2;--bd:#2c3040;--ok:#4ade80;--okb:#14532d;--bad:#fca5a5;--badb:#7f1d1d;--warn:#fde68a;--warnb:#713f12;--ac:#7db4f0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12141b;--card:#1c1f2a;--tx:#eef0f6;--mut:#9aa1b2;--bd:#2c3040;--ok:#4ade80;--okb:#14532d;--bad:#fca5a5;--badb:#7f1d1d;--warn:#fde68a;--warnb:#713f12;--ac:#7db4f0;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:16px}
+.w{max-width:760px;margin:0 auto}
+h1{font-size:22px;margin:4px 0 2px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+.sum{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.pill{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--mut)}
+.pill b{display:block;font-size:20px;color:var(--tx)}
+.sr{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px 14px;margin-bottom:8px;cursor:pointer;font-weight:600}
+.sr:hover{border-color:var(--ac)}
+.sn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{font-size:13px;padding:4px 10px;border-radius:999px;font-weight:600}
+.ok{background:var(--okb);color:var(--ok)}.bad{background:var(--badb);color:var(--bad)}.warn{background:var(--warnb);color:var(--warn)}.neu{background:var(--bg);color:var(--mut)}
+.add{width:100%;padding:12px;border:1px dashed var(--ac);color:var(--ac);background:transparent;border-radius:12px;font-size:15px;cursor:pointer;margin-top:6px}
+.leg{color:var(--mut);font-size:12px;margin-top:12px;line-height:1.5}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-start;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 16px) 12px 16px;overflow:auto;z-index:5}
+.ov.on{display:flex}
+.md{background:var(--card);border-radius:10px;width:100%;max-width:640px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--bd)}
+.mh h2{margin:0;font-size:20px;font-weight:500;color:var(--ac)}
+.cl{border:0;background:transparent;font-size:24px;color:var(--mut);cursor:pointer;line-height:1}
+.tabs{display:flex;margin:14px 18px 0}
+.tab{flex:1;text-align:center;padding:12px 4px;font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--mut);border:0;border-bottom:2px solid transparent;background:transparent;cursor:pointer;text-transform:uppercase}
+.tab.on{color:var(--ac);border-bottom-color:var(--ac)}
+.box{border:1px solid var(--bd);border-radius:6px;margin:14px 18px;padding:14px}
+.g{display:grid;grid-template-columns:1fr 78px 78px 26px;gap:8px;align-items:center;margin-bottom:8px}
+.g.hd{font-size:12px;font-weight:700;color:var(--ac);text-transform:uppercase}
+input{font:inherit}
+input.f{width:100%;font-size:14px;font-weight:600;padding:7px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);min-width:0}
+input:focus{border-color:var(--ac);outline:none}
+.x{border:0;background:transparent;color:var(--mut);font-size:16px;cursor:pointer}
+.adds{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.adds button{border:1px dashed var(--ac);color:var(--ac);background:transparent;border-radius:999px;padding:5px 10px;font-size:12px;cursor:pointer}
+.man{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);margin-bottom:8px}
+.man input{width:90px}
+.tot{margin:0 18px 6px;font-size:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tot .low{color:var(--bad);font-weight:700}
+.st{margin:8px 18px 0;font-size:13px;padding:8px 10px;border-radius:8px;font-weight:600}
+.ft{display:flex;gap:8px;padding:14px 18px 18px;align-items:center}
+.ft input{flex:1}
+.dl{color:var(--bad);background:none;border:0;font-size:12px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>📚 Minhas Notas</h1>
+<div class="sub">1ª e 2ª etapa: máx 30 (média 21) · 3ª etapa: máx 40 (média 28) · Para passar: somar 70. Toque na matéria para ver as avaliações.</div>
+<div class="sum" id="sum"></div>
+<div id="list"></div>
+<button class="add" onclick="addSub()">+ Adicionar matéria</button>
+<div class="leg">Em cada etapa, adicione provas e trabalhos: o total é a soma das notas. Sem nenhuma avaliação adicionada, dá para digitar só o total. Tudo fica salvo neste navegador.</div>
+</div>
+<div class="ov" id="ov" onclick="if(event.target===this)closeM()"><div class="md" id="md"></div></div>
+<script>
+const MAX=[30,30,40], AVG=[21,21,28], PASS=70, K4='notas-v3', K2='notas-v2';
+let subs=null, cur=-1, tab=0;
+try{subs=JSON.parse(localStorage.getItem(K4))}catch(e){}
+if(!Array.isArray(subs)){try{subs=JSON.parse(localStorage.getItem(K2))}catch(e){}}
+if(!Array.isArray(subs)) subs=[['Artes',24,27],['Biologia',21.4,22],['Educação Física',30,30],['Ensino Religioso',24.5,23.5],['Filosofia',21,20.2],['Física',22.9,20.4],['Geografia',22.7,21.6],['História',21.7,21.5],['Espanhol',27.2,27],['Língua Inglesa',27,25.7],['Língua Portuguesa',25,19.1],['Literatura',24,27.7],['Matemática',19.3,21.5],['Química',22.3,25],['Redação',21,21.8],['Sociologia',21.6,23.5]].map(a=>({n:a[0],t:[String(a[1]),String(a[2]),'']}));
+subs.forEach(s=>{if(!s.items)s.items=[[],[],[]];if(s.n==='Biologia'&&!s.items[0].length&&s.t[0]==='21.4')s.items[0]=[{n:'Atividade Ava 1 Bio I',m:'4',v:'3.6'},{n:'Prova Integrada',m:'10',v:'5'},{n:'Atividade Ava 2 Bio2',m:'4',v:'3.5'},{n:'Prova Trimestral',m:'12',v:'9.3'}]});
+function save(){try{localStorage.setItem(K4,JSON.stringify(subs))}catch(e){}}
+const num=v=>v===''||v==null||isNaN(+v)?null:+v;
+const r1=x=>Math.round(x*10)/10;
+const fmt=x=>String(r1(x)).replace('.',',');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+function tri(s,k){
+  const it=s.items[k];
+  if(it.length){const f=it.map(a=>num(a.v)).filter(v=>v!==null);return f.length?r1(f.reduce((a,b)=>a+b,0)):null}
+  return num(s.t[k]);
+}
+function calc(s){
+  const t=[0,1,2].map(k=>tri(s,k));
+  const got=r1(t.reduce((a,v)=>a+(v||0),0));
+  const done=t.every(v=>v!==null);
+  let msg,cls;
+  if(done){
+    if(got>=PASS){msg='✅ Aprovado! '+fmt(got)+' pontos';cls='ok'}
+    else{msg='❌ Abaixo de 70 — faltaram '+fmt(PASS-got)+' pontos';cls='bad'}
+  }else if(t.every(v=>v===null)){msg='Preencha as notas';cls='neu'}
+  else{
+    const rest=MAX.reduce((a,m,i)=>a+(t[i]===null?m:0),0);
+    const need=r1(PASS-got);
+    const left=t.map((v,i)=>v===null?(i+1)+'ª':null).filter(Boolean).join(' e ');
+    if(need<=0){msg='✅ Já garantiu os 70 pontos!';cls='ok'}
+    else if(need>rest){msg='❌ Não dá mais para chegar a 70 (faltam '+fmt(need)+', restam '+rest+')';cls='bad'}
+    else{msg='⚠️ Faltam '+fmt(need)+' pontos — ainda restam '+rest+' ('+left+' etapa)';cls='warn'}
+  }
+  return{t,got,done,msg,cls,pass:done&&got>=PASS};
+}
+function render(){
+  document.getElementById('list').innerHTML=subs.map((s,i)=>{const c=calc(s);return `<div class="sr" onclick="openM(${i})"><span class="sn">${esc(s.n)}</span><span class="chip ${c.cls}">${fmt(c.got)} / 70</span></div>`}).join('');
+  sumUpd();
+}
+function sumUpd(){
+  const r=subs.map(calc),ok=r.filter(x=>x.pass).length,bad=r.filter(x=>x.done&&!x.pass).length;
+  document.getElementById('sum').innerHTML=`<div class="pill"><b>${ok}/${subs.length}</b>aprovadas</div><div class="pill"><b>${bad}</b>abaixo de 70</div><div class="pill"><b>${subs.length-ok-bad}</b>em andamento</div>`;
+}
+function openM(i){cur=i;tab=0;renderM();document.getElementById('ov').classList.add('on')}
+function closeM(){cur=-1;document.getElementById('ov').classList.remove('on');render()}
+function setTab(k){tab=k;renderM()}
+function renderM(){
+  const s=subs[cur],it=s.items[tab];
+  const rows=it.map((a,j)=>`<div class="g"><input class="f" value="${esc(a.n)}" oninput="setIt(${j},'n',this)"><input class="f" type="number" inputmode="decimal" step="0.1" min="0" placeholder="máx" value="${esc(a.m)}" oninput="setIt(${j},'m',this)"><input class="f" type="number" inputmode="decimal" step="0.1" min="0" placeholder="nota" value="${esc(a.v)}" oninput="setIt(${j},'v',this)"><button class="x" title="Remover" onclick="delIt(${j})">✕</button></div>`).join('');
+  const head=it.length?`<div class="g hd"><span>Avaliações</span><span>Peso/N.Máx</span><span>Nota</span><span></span></div>`:'';
+  const man=it.length?'':`<div class="man">Total da etapa: <input class="f" type="number" inputmode="decimal" step="0.1" min="0" max="${MAX[tab]}" value="${esc(s.t[tab])}" oninput="setMan(this)"> / ${MAX[tab]}</div>`;
+  document.getElementById('md').innerHTML=`<div class="mh"><h2>${esc(s.n)}</h2><button class="cl" onclick="closeM()">×</button></div>
+  <div class="tabs">${[0,1,2].map(k=>`<button class="tab ${k===tab?'on':''}" onclick="setTab(${k})">${k+1}ª etapa</button>`).join('')}</div>
+  <div class="box">${man}${head}${rows}<div class="adds"><button onclick="addIt('Prova integrada','')">+ Prova integrada</button><button onclick="addIt('Prova trimestral','')">+ Prova trimestral</button><button onclick="addIt('Trabalho','4')">+ Trabalho</button><button onclick="addIt('Outra avaliação','')">+ Outra</button></div></div>
+  <div class="tot"><span>Total da etapa: <b id="tt"></b> / ${MAX[tab]} <small>(média ${AVG[tab]})</small></span><span>Total da matéria: <b id="tg"></b> / 70</span></div>
+  <div class="st" id="st"></div>
+  <div class="ft"><input class="f" value="${esc(s.n)}" title="Nome da matéria" oninput="subs[cur].n=this.value;save();document.querySelector('.mh h2').textContent=this.value"><button class="dl" onclick="delSub()">Remover matéria</button></div>`;
+  updM();
+}
+function updM(){
+  const s=subs[cur],c=calc(s),v=c.t[tab];
+  const tt=document.getElementById('tt');tt.textContent=v===null?'–':fmt(v);tt.className=v!==null&&v<AVG[tab]?'low':'';
+  document.getElementById('tg').textContent=fmt(c.got);
+  const st=document.getElementById('st');st.className='st '+c.cls;st.textContent=c.msg;
+}
+function clamp(el,mx){if(el.value!==''&&+el.value>mx)el.value=mx;if(el.value!==''&&+el.value<0)el.value=0}
+function setMan(el){clamp(el,MAX[tab]);subs[cur].t[tab]=el.value;save();updM()}
+function setIt(j,f,el){
+  const a=subs[cur].items[tab][j];
+  if(f==='v')clamp(el,num(a.m)!==null?+a.m:MAX[tab]);
+  if(f==='m'){clamp(el,MAX[tab]);if(el.value!==''&&num(a.v)!==null&&+a.v>+el.value)a.v=el.value}
+  a[f]=el.value;save();updM();
+  if(f==='m')renderM2();
+}
+function renderM2(){}
+function addIt(n,m){subs[cur].items[tab].push({n,v:'',m});save();renderM()}
+function delIt(j){subs[cur].items[tab].splice(j,1);save();renderM()}
+function addSub(){subs.push({n:'Nova matéria',t:['','',''],items:[[],[],[]]});save();render();openM(subs.length-1)}
+function delSub(){if(confirm('Remover '+subs[cur].n+'?')){subs.splice(cur,1);save();closeM()}}
+render();
+</script>
+</body>
+</html>
